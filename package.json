@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "mocha": "~1.7",
-    "mozilla-download": "~0.0.1",
+    "mozilla-download": "~0.1.0",
     "node-static": "~0.6"
   },
   "license": "MIT",
