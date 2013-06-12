@@ -1,7 +1,7 @@
 .PHONY: test
 test:
 	node setup.js
-	DEBUG=* ./node_modules/mocha/bin/mocha --ui tdd -t 30s
+	./node_modules/mocha/bin/mocha --ui tdd -t 30s
 
 
 .PHONY: ci
