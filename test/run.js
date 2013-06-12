@@ -1,6 +1,4 @@
 suite('run', function() {
-  this.timeout('5s');
-
   var run = require('../lib/run').run;
   var runtime = __dirname + '/fixtures/firefox';
   var assert = require('assert');

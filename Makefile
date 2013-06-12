@@ -1,7 +1,7 @@
 .PHONY: test
 test:
 	node setup.js
-	./node_modules/mocha/bin/mocha --ui tdd
+	./node_modules/mocha/bin/mocha --ui tdd -t 30s
 
 .PHONY: server
 server:
