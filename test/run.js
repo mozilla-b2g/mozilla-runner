@@ -63,7 +63,7 @@ suite('run', function() {
       });
     });
 
-    var url = 'http://localhost:' + port + '/dump.html';
+    var url = 'http://127.0.0.1:' + port + '/dump.html';
     var expected = 'WOOT DUMP';
     test('go to url', function(done) {
       var options = { profile: profileDir, url: url };
