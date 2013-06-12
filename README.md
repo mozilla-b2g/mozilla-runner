@@ -12,6 +12,7 @@ var run = require('mozilla-runner').run;
 var options {
   // profile: '/path/to/profile' (product profile)
   // url: 'initial url to start at'
+  // argv: ['-jsconsole'] extra flags that this library does not have special handling for
 };
 
 // run is smart enoguh to figure out where the binary is based on the product name itself.
