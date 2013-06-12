@@ -39,7 +39,6 @@ suite('run', function() {
     setup(function() {
       var file = new (static.Server)(__dirname + '/html');
       server = require('http').createServer(function(req, res) {
-        console.log('>>>!', req.headers.host, '<<< HIT!');
         // stolen from node-static
         req.on('end', function() {
           file.serve(req, res);
@@ -72,7 +71,6 @@ suite('run', function() {
         if (err) return done(err);
         child.stdout.on('data', function(content) {
           content = content.toString();
-          console.log('GOT CONTENT?', content);
           // verify we can go to a given url
           if (content.indexOf(expected) !== -1) {
             child.kill();
