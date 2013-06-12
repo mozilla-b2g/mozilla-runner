@@ -16,7 +16,7 @@ var options {
 
 // run is smart enoguh to figure out where the binary is based on the product name itself.
 // for example on OSX firefox is actually at /Applications/Firefox.app/Contents/MacOS/firefox-bin
-// this means that you safely pass in a directly and expect it to find the binary on linux or OSX.
+// this means that you safely pass in a directory and expect it to find the binary on linux or OSX.
 var pathToFirefox = '/Applications/Firefox.app'
 
 // options are optional
