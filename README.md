@@ -1,5 +1,5 @@
 # Mozilla Runner 
-[![Build Status](https://travis-ci.org/lightsofapollo/mozilla-runner.png)](https://travis-ci.org/[lightsofapollo]/[mozilla-runner])
+[![Build Status](https://travis-ci.org/lightsofapollo/mozilla-runner.png)](https://travis-ci.org/lightsofapollo/mozilla-runner)
 
 Node wrapper for creating a child process ([spawn](http://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options))
 of a gecko runtime firefox / b2g-desktop.
