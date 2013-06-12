@@ -66,6 +66,7 @@ suite('run', function() {
     var expected = 'WOOT DUMP';
     test('go to url', function(done) {
       var options = { profile: profileDir, url: url };
+      console.log(require('fs').readFileSync(profileDir + '/user.js', 'utf8'));
       run('firefox', runtime, options, function(err, child) {
         if (err) return done(err);
         child.stdout.on('data', function(content) {
