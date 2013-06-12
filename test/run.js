@@ -74,8 +74,10 @@ suite('run', function() {
         child.stdout.on('data', function(content) {
           content = content.toString();
           // verify we can go to a given url
-          if (content.indexOf(expected) !== -1)
-            return done();
+          if (content.indexOf(expected) !== -1) {
+            child.kill();
+            done();
+          }
         });
       });
     });
