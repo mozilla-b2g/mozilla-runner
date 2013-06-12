@@ -8,7 +8,6 @@ suite('run', function() {
   test('launch firefox', function(done) {
     var profileDir = __dirname + '/fixtures/profile';
     var options = { profile: profileDir };
-    this.timeout(5000);
     run('firefox', runtime, options, function(err, child, bin, argv) {
       assert.ok(!err, err && err.message);
 
@@ -30,7 +29,7 @@ suite('run', function() {
 
   suite('launch firefox read dump', function() {
     var server;
-    var port = 60033;
+    var port = 60036;
     var config = {
       // turn on dump
       'browser.dom.window.dump.enabled': true
