@@ -1,7 +1,7 @@
 # Mozilla Runner
 
-Node wrapper for creating a child process of a gecko runtime
-(firefox/b2g-desktop).
+Node wrapper for creating a child process ([spawn](http://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options))
+of a gecko runtime firefox / b2g-desktop.
 
 ## Usage
 
@@ -14,7 +14,9 @@ var options {
   // url: 'initial url to start at'
 };
 
-// on OSX
+// run is smart enoguh to figure out where the binary is based on the product name itself.
+// for example on OSX firefox is actually at /Applications/Firefox.app/Contents/MacOS/firefox-bin
+// this means that you safely pass in a directly and expect it to find the binary on linux or OSX.
 var pathToFirefox = '/Applications/Firefox.app'
 
 // options are optional
