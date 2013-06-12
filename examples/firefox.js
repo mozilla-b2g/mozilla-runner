@@ -37,7 +37,7 @@ function startServer() {
   }).listen(PORT);
 }
 
-function profile(callback) {
+function profile(product, path, options, callback) {
   mozprofile.firefox.profile({ userPrefs: PREFS }, function(err, path) {
     callback(err, path);
   });
@@ -47,17 +47,14 @@ function demo() {
   // invoke the server
   startServer();
 
-  // create temp profile (which uses custom prefs)
-  profile(function(err, path) {
-    var options = {
-      profile: path,
-      url: 'http://localhost:' + PORT + '/index.html'
-    };
+  var options = {
+    profile: profile,
+    url: 'http://localhost:' + PORT + '/index.html'
+  };
 
-    mozrun.run('firefox', FIREFOX_PATH, options, function(err, child) {
-      child.stdout.on('data', function(content) {
-        console.log('[firefox] %s', content.toString());
-      });
+  mozrun.run('firefox', FIREFOX_PATH, options, function(err, child) {
+    child.stdout.on('data', function(content) {
+      console.log('[firefox] %s', content.toString());
     });
   });
 }
