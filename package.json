@@ -13,6 +13,10 @@
   "dependencies" : {
     "debug": "*"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mozilla-b2g/mozilla-runner"
+  },
   "devDependencies": {
     "mocha": "~1.7",
     "mozilla-download": "~0.1.0",
