@@ -1,6 +1,5 @@
 .PHONY: test
 test: test/fixtures/firefox
-	node setup.js
 	./node_modules/mocha/bin/mocha --ui tdd -t 30s
 
 test/fixtures:
