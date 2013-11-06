@@ -9,7 +9,7 @@ suite('run', function() {
     var profileDir = __dirname + '/fixtures/profile';
     var options = { product: 'firefox', profile: profileDir };
     this.timeout(5000);
-    run('firefox', runtime, options, function(err, child, bin, argv) {
+    run(runtime, options, function(err, child, bin, argv) {
       assert.ok(!err, err && err.message);
 
       // verify the binary
@@ -67,7 +67,7 @@ suite('run', function() {
     var expected = 'WOOT DUMP';
     test('go to url', function(done) {
       var options = { product: 'firefox', profile: profileDir, url: url };
-      run('firefox', runtime, options, function(err, child) {
+      run(runtime, options, function(err, child) {
         if (err) return done(err);
         child.stdout.on('data', function(content) {
           content = content.toString();
