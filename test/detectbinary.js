@@ -1,56 +1,60 @@
 suite('detectbinary', function() {
   var fsPath = require('path');
-  var detect = require('../lib/detectbinary');
   var assert = require('assert');
+  var subject = require('../lib/detectbinary').detectBinary;
 
   var platforms = {
     mac: {
       path: __dirname + '/fixtures/product-mac',
       suffix: '/Contents/MacOS',
-      platform: 'darwin'
+      platform: 'darwin',
+      product: 'firefox'
+    },
+    noBinMac: {
+      path: __dirname + '/fixtures/product-mac-no-bin',
+      suffix: '/Contents/MacOS',
+      platform: 'darwin',
+      product: 'firefox'
     },
     linux: {
       path: __dirname + '/fixtures/product-linux',
       suffix: '',
-      platform: 'linux-bs'
+      platform: 'linux-bs',
+      product: 'firefox'
+    },
+    noBinLinux: {
+      path: __dirname + '/fixtures/product-linux-no-bin',
+      suffix: '',
+      platform: 'linux-bs',
+      product: 'firefox'
     }
   };
 
-  function verifyBinary(fixture, binary) {
-    test('lookup binary for: ' + fixture + ' - ' + binary, function(done) {
-      var detail = platforms[fixture];
-      var options = { platform: detail.platform };
+  function fixturePath(fixture, bin) {
+    fsPath.join(
+      fixture.path,
+      fixture.suffix,
+      bin
+    );
+  }
 
-      if (binary) {
-        options.bin = binary;
-      } else {
-        binary = detect.defaultBin;
-      }
-
-      assert.ok(detail, 'missing fixture!');
-      detect.detectBinary(
-        detail.path,
-        options,
-        function(err, path) {
-          if (err) return done(err);
-          var expectedBin = fsPath.join(detail.path, detail.suffix, binary);
-          assert.equal(path, expectedBin);
-          done();
-        }
-      );
+  function verify(name, fixture, bin) {
+    test(name, function(done) {
+      subject(fixture.path, fixture, function(err, path) {
+        if (err) return done(err);
+        assert.equal(fixturePath(fixture, bin));
+        done();
+      });
     });
   }
 
-  // default binary
-  verifyBinary('mac');
-  verifyBinary('linux');
-
-  // custom binary
-  verifyBinary('mac', 'foo-bin');
-  verifyBinary('linux', 'foo-bin');
+  verify('mac with -bin', platforms.mac, 'firefox-bin');
+  verify('mac without -bin', platforms.noBinMac, 'firefox');
+  verify('linux with -bin', platforms.linux, 'firefox-bin');
+  verify('linux without -bin', platforms.noBinLinux, 'firefox');
 
   test('missing binary', function(done) {
-    detect.detectBinary(__dirname, { bin: 'nothere' }, function(err) {
+    subject(__dirname, { product: 'firefox', bin: 'nothere' }, function(err) {
       assert.ok(err, 'has error');
       assert.ok(err.message.indexOf(__dirname) !== 0, 'contains path');
       done();
