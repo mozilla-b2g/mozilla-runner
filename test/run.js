@@ -32,13 +32,12 @@ suite('run', function() {
     var profileDir = __dirname + '/fixtures/profile';
     var options =
       { product: 'firefox', profile: profileDir,
-        runner: {
-          screen: {
-            width: 1280,
-            height: 800,
-            dpi: 160
-          }
-        }};
+        screen: {
+          width: 1280,
+          height: 800,
+          dpi: 160
+        }
+      };
     this.timeout(5000);
     run(runtime, options, function(err, child, bin, argv) {
       assert.ok(!err, err && err.message);
