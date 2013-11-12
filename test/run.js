@@ -28,6 +28,36 @@ suite('run', function() {
     });
   });
 
+  test('launch firefox with different screen', function(done) {
+    var profileDir = __dirname + '/fixtures/profile';
+    var options =
+      { product: 'firefox', profile: profileDir,
+        runner: {
+          screen: {
+            width: 1280,
+            height: 800,
+            dpi: 160
+          }
+        }};
+    this.timeout(5000);
+    run(runtime, options, function(err, child, bin, argv) {
+      assert.ok(!err, err && err.message);
+
+      // verify screen size
+      assert.deepEqual(
+        argv,
+        [
+          '-profile', profileDir, '--screen=1280x800@160',
+          '-no-remote'
+        ]
+      );
+
+      // verify we have a child
+      assert.ok(child.kill, 'is process');
+      child.kill();
+      done();
+    });
+  });
   suite('launch firefox read dump', function() {
     var server;
     var port = 60033;
