@@ -1,5 +1,5 @@
 # Mozilla Runner 
-[![Build Status](https://travis-ci.org/lightsofapollo/mozilla-runner.png)](https://travis-ci.org/lightsofapollo/mozilla-runner)
+[![Build Status](https://travis-ci.org/mozilla-b2g/mozilla-runner.png)](https://travis-ci.org/mozilla-b2g/mozilla-runner)
 
 Node wrapper for creating a child process ([spawn](http://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options))
 of a gecko runtime firefox / b2g-desktop.
@@ -14,15 +14,15 @@ var options {
   // profile: '/path/to/profile' (product profile)
   // url: 'initial url to start at'
   // argv: ['-jsconsole'] extra flags that this library does not have special handling for
+
+  // run is smart enoguh to figure out where the binary is based on the product name itself.
+  // for example on OSX firefox is actually at /Applications/Firefox.app/Contents/MacOS/firefox-bin
+  // this means that you safely pass in a directory and expect it to find the binary on linux or OSX.
+  product: 'firefox'
 };
 
-// run is smart enoguh to figure out where the binary is based on the product name itself.
-// for example on OSX firefox is actually at /Applications/Firefox.app/Contents/MacOS/firefox-bin
-// this means that you safely pass in a directory and expect it to find the binary on linux or OSX.
-var pathToFirefox = '/Applications/Firefox.app'
-
 // options are optional
-run('firefox', pathToFirefox, options, function(err, child) {
+run('firefox', options, function(err, child) {
   // child is a subprocess that is running firefox
 
   // ... (do stuff with process)  
