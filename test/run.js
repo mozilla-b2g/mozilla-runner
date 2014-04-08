@@ -57,6 +57,84 @@ suite('run', function() {
       done();
     });
   });
+
+  test('check env overrides', function(done) {
+    var profileDir = __dirname + '/fixtures/profile';
+    // this should not be seen in the child since we are deleting it
+    process.env['BAR'] = 'bar';
+    var options = {
+      product: 'echostuff',
+      envOverrides: {
+        FOO: 'foo',
+        BAR: null
+      }
+    };
+    var expected = 'FOO is foo and BAR is stop';
+    this.timeout(5000);
+    run(__dirname + '/fixtures/env-echoer', options,
+        function(err, child, bin, argv) {
+      assert.ok(!err, err && err.message);
+
+      child.stdout.on('data', function(content) {
+        content = content.toString();
+        // verify we can go to a given url
+        if (content.indexOf(expected) !== -1) {
+          child.kill();
+          done();
+        }
+      });
+    });
+  });
+
+  test('explicit env', function(done) {
+    var profileDir = __dirname + '/fixtures/profile';
+    // this should not be seen in the child since it is using an explicit env.
+    process.env['BAR'] = 'bar';
+    var options = {
+      product: 'echostuff',
+      env: {
+        FOO: 'foo',
+      }
+    };
+    var expected = 'FOO is foo and BAR is stop';
+    this.timeout(5000);
+    run(__dirname + '/fixtures/env-echoer', options,
+        function(err, child, bin, argv) {
+      assert.ok(!err, err && err.message);
+
+      child.stdout.on('data', function(content) {
+        content = content.toString();
+        if (content.indexOf(expected) !== -1) {
+          child.kill();
+          done();
+        }
+      });
+    });
+  });
+
+  test('env is expected default if not specified', function(done) {
+    var profileDir = __dirname + '/fixtures/profile';
+    process.env['FOO'] = 'foo';
+    process.env['BAR'] = 'bar';
+    var options = {
+      product: 'echostuff',
+    };
+    var expected = 'FOO is foo and BAR is bar stop';
+    this.timeout(5000);
+    run(__dirname + '/fixtures/env-echoer', options,
+        function(err, child, bin, argv) {
+      assert.ok(!err, err && err.message);
+
+      child.stdout.on('data', function(content) {
+        content = content.toString();
+        if (content.indexOf(expected) !== -1) {
+          child.kill();
+          done();
+        }
+      });
+    });
+  });
+
   suite('launch firefox read dump', function() {
     var server;
     var port = 60033;
